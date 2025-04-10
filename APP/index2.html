@@ -1,0 +1,3387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edutec - Connect with Expert Tutors</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="javascript.js"></script>
+
+    <style>
+        :root {
+            --primary: #4A6FFF;
+            --primary-dark: #3A5AE8;
+            --primary-light: #6A8CFF;
+            --secondary: #FF7A50;
+            --secondary-dark: #E86A40;
+            --secondary-light: #FF8F6A;
+            --background: #F8F9FC;
+            --card-bg: #FFFFFF;
+            --text: #2D3748;
+            --text-light: #718096;
+            --border: #E2E8F0;
+            --success: #48BB78;
+            --warning: #F6AD55;
+            --error: #F56565;
+            --shadow: 0 4px 6px rgba(45, 55, 72, 0.05), 0 1px 3px rgba(45, 55, 72, 0.1);
+            --shadow-lg: 0 10px 15px rgba(45, 55, 72, 0.1), 0 4px 6px rgba(45, 55, 72, 0.05);
+            --shadow-inner: inset 0 2px 4px 0 rgba(45, 55, 72, 0.06);
+            --transition: all 0.3s ease;
+            --neumorphic-shadow: 6px 6px 12px rgba(45, 55, 72, 0.1), -6px -6px 12px rgba(255, 255, 255, 0.8);
+            --neumorphic-shadow-inset: inset 4px 4px 8px rgba(45, 55, 72, 0.1), inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+        }
+
+        .dark {
+            --primary: #6A8CFF;
+            --primary-dark: #5A7AFF;
+            --primary-light: #8AA6FF;
+            --secondary: #FF8F6A;
+            --secondary-dark: #FF7A50;
+            --secondary-light: #FFA68A;
+            --background: #1A202C;
+            --card-bg: #2D3748;
+            --text: #F7FAFC;
+            --text-light: #CBD5E0;
+            --border: #4A5568;
+            --success: #68D391;
+            --warning: #F6E05E;
+            --error: #FC8181;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
+            --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s ease;
+            --neumorphic-shadow: 6px 6px 12px rgba(0, 0, 0, 0.3), -6px -6px 12px rgba(45, 55, 72, 0.3);
+            --neumorphic-shadow-inset: inset 4px 4px 8px rgba(0, 0, 0, 0.3), inset -4px -4px 8px rgba(45, 55, 72, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .noise-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=');
+            opacity: 0.02;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--background);
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-container .session-avatar .a { 
+            color: #2D3748;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border);
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .profile-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Main Content Styles */
+        main {
+            margin-top: 90px;
+            flex: 1;
+            padding: 40px 0;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            border: none;
+            outline: none;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-text {
+            background-color: transparent;
+            color: var(--primary);
+            padding: 5px 10px;
+        }
+
+        .btn-text:hover {
+            background-color: rgba(74, 111, 255, 0.1);
+        }
+
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 24px;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+        }
+
+        .card-neumorphic {
+            background-color: var(--background);
+            border-radius: 16px;
+            box-shadow: var(--neumorphic-shadow);
+            padding: 24px;
+            transition: var(--transition);
+        }
+
+        .card-neumorphic:hover {
+            box-shadow: var(--neumorphic-shadow-inset);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: var(--card-bg);
+            color: var(--text);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 111, 255, 0.2);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234A6FFF' width='18px' height='18px'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 40px;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .form-checkbox input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text);
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 32px;
+            max-width: 800px;
+        }
+
+        /* Grid and Flex Layouts */
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-between {
+            justify-content: space-between;
+        }
+
+        .flex-center {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flex-column {
+            flex-direction: column;
+        }
+
+        .gap-10 {
+            gap: 10px;
+        }
+
+        .gap-20 {
+            gap: 20px;
+        }
+
+        .gap-30 {
+            gap: 30px;
+        }
+
+        /* Animation Styles */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Badge Styles */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-primary {
+            background-color: rgba(74, 111, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .badge-secondary {
+            background-color: rgba(255, 122, 80, 0.1);
+            color: var(--secondary);
+        }
+
+        .badge-success {
+            background-color: rgba(72, 187, 120, 0.1);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background-color: rgba(246, 173, 85, 0.1);
+            color: var(--warning);
+        }
+
+        /* Avatar Styles */
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .avatar-sm {
+            width: 32px;
+            height: 32px;
+            font-size: 12px;
+        }
+
+        .avatar-lg {
+            width: 56px;
+            height: 56px;
+            font-size: 20px;
+        }
+
+        .avatar-xl {
+            width: 80px;
+            height: 80px;
+            font-size: 28px;
+        }
+
+        /* Rating Stars */
+        .rating {
+            display: flex;
+            gap: 2px;
+        }
+
+        .rating i {
+            color: #F6AD55;
+        }
+
+        /* Utility Classes */
+        .mt-10 { margin-top: 10px; }
+        .mt-20 { margin-top: 20px; }
+        .mt-30 { margin-top: 30px; }
+        .mb-10 { margin-bottom: 10px; }
+        .mb-20 { margin-bottom: 20px; }
+        .mb-30 { margin-bottom: 30px; }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .w-100 { width: 100%; }
+        .hidden { display: none; }
+
+        /* Screens */
+        #login-screen,
+        #dashboard-screen,
+        #profile-screen,
+        #booking-screen,
+        #chat-screen {
+            display: none;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* Login Screen */
+        .login-container {
+            max-width: 500px;
+            margin: 40px auto;
+        }
+
+        .login-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+            border-radius: 8px;
+            background-color: var(--background);
+            box-shadow: var(--neumorphic-shadow);
+            padding: 5px;
+        }
+
+        .login-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .login-tab.active {
+            color: white;
+        }
+
+        .login-slider {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: calc(50% - 5px);
+            height: calc(100% - 10px);
+            background-color: var(--primary);
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .login-form-container {
+            box-shadow: var(--neumorphic-shadow);
+            border-radius: 16px;
+            padding: 40px;
+            background-color: var(--background);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .login-header p {
+            color: var(--text-light);
+        }
+
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .social-btn:hover {
+            background-color: var(--background);
+            transform: translateY(-2px);
+        }
+
+        .social-btn i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: var(--text-light);
+        }
+
+        .divider:before,
+        .divider:after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: var(--border);
+        }
+
+        .divider span {
+            padding: 0 15px;
+            font-size: 14px;
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: right;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .login-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Dashboard Screen */
+        .dashboard-header {
+            margin-bottom: 40px;
+        }
+
+        .welcome-message h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .welcome-message p {
+            color: var(--text-light);
+            max-width: 600px;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: var(--neumorphic-shadow);
+            background-color: var(--background);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 22px;
+            color: white;
+        }
+
+        .stat-icon.blue {
+            background-color: var(--primary);
+        }
+
+        .stat-icon.orange {
+            background-color: var(--secondary);
+        }
+
+        .stat-icon.green {
+            background-color: var(--success);
+        }
+
+        .stat-icon.purple {
+            background-color: #9F7AEA;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .action-card {
+            flex: 1;
+            padding: 20px;
+            border-radius: 12px;
+            background-color: var(--background);
+            box-shadow: var(--neumorphic-shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .action-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(74, 111, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .action-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .action-desc {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .tutors-section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .tutor-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .tutor-card {
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .tutor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tutor-cover {
+            height: 100px;
+            background-color: var(--primary);
+            position: relative;
+        }
+
+        .tutor-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            font-weight: 600;
+            border: 4px solid var(--card-bg);
+            position: absolute;
+            bottom: -40px;
+            left: 20px;
+        }
+
+        .tutor-info {
+            padding: 50px 20px 20px;
+        }
+
+        .tutor-name {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .tutor-subject {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .tutor-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .tutor-rating i {
+            color: #F6AD55;
+        }
+
+        .tutor-rating span {
+            font-weight: 500;
+        }
+
+        .tutor-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .tutor-tag {
+            background-color: rgba(74, 111, 255, 0.1);
+            color: var(--primary);
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .tutor-footer {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .tutor-price {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .sessions-section {
+            margin-bottom: 40px;
+        }
+
+        .session-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .session-card {
+            display: flex;
+            padding: 20px;
+            border-radius: 12px;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .session-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .session-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            margin-right: 15px;
+        }
+
+        .session-info {
+            flex: 1;
+        }
+
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .session-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .session-status {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .status-upcoming {
+            background-color: rgba(74, 111, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .status-active {
+            background-color: rgba(72, 187, 120, 0.1);
+            color: var(--success);
+        }
+
+        .status-completed {
+            background-color: rgba(160, 174, 192, 0.1);
+            color: var(--text-light);
+        }
+
+        .session-details {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .session-detail {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .session-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Profile Screen */
+        .profile-header {
+            display: flex;
+            margin-bottom: 40px;
+        }
+
+        .profile-avatar-container {
+            margin-right: 30px;
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            font-weight: 600;
+            border: 5px solid var(--card-bg);
+            box-shadow: var(--shadow);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .profile-title {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .profile-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .profile-stat-label {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .profile-tabs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        .profile-tab {
+            padding: 10px 5px;
+            font-weight: 500;
+            color: var(--text-light);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .profile-tab.active {
+            color: var(--primary);
+        }
+
+        .profile-tab.active:after {
+            content: '';
+            position: absolute;
+            bottom: -16px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .about-section {
+            margin-bottom: 30px;
+        }
+
+        .about-text {
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .expertise-section {
+            margin-bottom: 30px;
+        }
+
+        .expertise-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .expertise-item {
+            background-color: rgba(74, 111, 255, 0.1);
+            color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .education-section {
+            margin-bottom: 30px;
+        }
+
+        .education-item {
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 2px solid var(--primary);
+        }
+
+        .education-year {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .education-degree {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .education-school {
+            color: var(--text-light);
+        }
+
+        .reviews-section {
+            margin-bottom: 30px;
+        }
+
+        .review-item {
+            padding: 20px;
+            border-radius: 12px;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reviewer-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .reviewer-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reviewer-name {
+            font-weight: 500;
+        }
+
+        .reviewer-date {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .review-text {
+            line-height: 1.6;
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+
+        .review-rating {
+            display: flex;
+            gap: 2px;
+        }
+
+        .review-rating i {
+            color: #F6AD55;
+        }
+
+        .sidebar-section {
+            padding: 24px;
+            border-radius: 12px;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .sidebar-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .availability-calendar {
+            margin-bottom: 20px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .calendar-month {
+            font-weight: 500;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .calendar-nav-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--background);
+            color: var(--text);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .calendar-nav-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .calendar-day-name {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-light);
+            padding: 5px 0;
+        }
+
+        .calendar-dates {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .calendar-date {
+            width: 100%;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .calendar-date:hover {
+            background-color: rgba(74, 111, 255, 0.1);
+        }
+
+        .calendar-date.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .calendar-date.disabled {
+            color: var(--border);
+            cursor: not-allowed;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .time-slot {
+            padding: 8px;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: var(--background);
+        }
+
+        .time-slot:hover {
+            background-color: rgba(74, 111, 255, 0.1);
+        }
+
+        .time-slot.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .time-slot.disabled {
+            color: var(--border);
+            cursor: not-allowed;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .contact-info-item i {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(74, 111, 255, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Booking Screen */
+        .booking-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .booking-form-container {
+            padding: 30px;
+            border-radius: 12px;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+        }
+
+        .booking-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .form-steps {
+            display: flex;
+            margin-bottom: 40px;
+        }
+
+        .form-step {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .form-step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 24px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background-color: var(--border);
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--background);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .form-step.active .step-number {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .form-step.completed .step-number {
+            background-color: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .form-step.completed:not(:last-child):after {
+            background-color: var(--success);
+        }
+
+        .step-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .form-step.active .step-label {
+            color: var(--primary);
+        }
+
+        .form-step.completed .step-label {
+            color: var(--success);
+        }
+
+        .step-content {
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .service-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .service-option {
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .service-option:hover {
+            border-color: var(--primary);
+        }
+
+        .service-option.active {
+            border-color: var(--primary);
+            background-color: rgba(74, 111, 255, 0.05);
+        }
+
+        .service-option-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: rgba(74, 111, 255, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .service-name {
+            font-weight: 600;
+        }
+
+        .service-description {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .service-price {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .booking-summary {
+            padding: 30px;
+            border-radius: 12px;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .summary-tutor {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .summary-tutor-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .summary-tutor-info {
+            flex: 1;
+        }
+
+        .summary-tutor-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .summary-tutor-subject {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .summary-details {
+            margin-bottom: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .summary-label {
+            color: var(--text-light);
+        }
+
+        .summary-value {
+            font-weight: 500;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .total-label {
+            font-weight: 600;
+        }
+
+        .total-value {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        /* Chat Screen */
+        .chat-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            height: calc(100vh - 90px);
+            margin-top: -40px;
+            margin-bottom: -40px;
+            overflow: hidden;
+        }
+
+        .chat-sidebar {
+            background-color: var(--card-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .chat-search {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .search-input {
+            position: relative;
+        }
+
+        .search-input input {
+            width: 100%;
+            padding: 12px 20px 12px 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: var(--background);
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .search-input i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        .chat-contacts {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .chat-contact {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 5px;
+        }
+
+        .chat-contact:hover {
+            background-color: var(--background);
+        }
+
+        .chat-contact.active {
+            background-color: rgba(74, 111, 255, 0.1);
+        }
+
+        .contact-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+            position: relative;
+        }
+
+        .contact-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--success);
+            border: 2px solid var(--card-bg);
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        .contact-info {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .contact-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .contact-message {
+            font-size: 13px;
+            color: var(--text-light);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .contact-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .contact-time {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .contact-badge {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-main {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chat-user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .chat-user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-user-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .chat-user-status {
+            font-size: 13px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--success);
+        }
+
+        .chat-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .chat-action {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--background);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chat-action:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: var(--background);
+        }
+
+        .message-group {
+            margin-bottom: 20px;
+        }
+
+        .message-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .message-sender {
+            font-weight: 500;
+            margin-right: 10px;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .message-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-left: 46px;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 15px;
+            border-radius: 12px;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            line-height: 1.5;
+        }
+
+        .message-bubble.sent {
+            align-self: flex-end;
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .chat-input {
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            background-color: var(--card-bg);
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .attachment-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--background);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .attachment-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .message-input {
+            flex: 1;
+            position: relative;
+        }
+
+        .message-input textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            background-color: var(--background);
+            color: var(--text);
+            font-size: 16px;
+            resize: none;
+            max-height: 100px;
+            min-height: 40px;
+        }
+
+        .emoji-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .emoji-btn:hover {
+            color: var(--primary);
+        }
+
+        .send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .send-btn:hover {
+            background-color: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        /* Video Call Screen */
+        .video-call-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background-color: var(--background);
+        }
+
+        .video-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .video-box {
+            aspect-ratio: 16/9;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: var(--card-bg);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 32px;
+        }
+
+        .video-user-info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .video-user-info i {
+            color: var(--success);
+        }
+
+        .video-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: var(--card-bg);
+        }
+
+        .video-control {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .control-mute {
+            background-color: rgba(74, 111, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .control-video {
+            background-color: rgba(74, 111, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .control-screen {
+            background-color: rgba(74, 111, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .control-chat {
+            background-color: rgba(74, 111, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .control-end {
+            background-color: rgba(245, 101, 101, 0.1);
+            color: var(--error);
+        }
+
+        .video-control:hover {
+            transform: translateY(-5px);
+        }
+
+        .control-mute:hover,
+        .control-video:hover,
+        .control-screen:hover,
+        .control-chat:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .control-end:hover {
+            background-color: var(--error);
+            color: white;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            background-color: var(--success);
+            color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast.error {
+            background-color: var(--error);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .dashboard-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tutor-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .booking-container {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-summary {
+                position: static;
+            }
+
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-actions {
+                flex-direction: column;
+            }
+
+            .tutor-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .session-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-avatar-container {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .profile-stats {
+                justify-content: center;
+            }
+
+            .profile-actions {
+                justify-content: center;
+            }
+
+            .service-options {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-container {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-sidebar {
+                display: none;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 0 10px;
+            }
+
+            .login-form-container {
+                padding: 20px;
+            }
+
+            .social-login {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-bg"></div>
+    <div id="toast" class="toast"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo" onclick="showScreen('dashboard-screen'); return false;">
+                <img src="images/logo.png" alt="Tutor" class="session-avatar">
+                Edutec
+            </a>
+            <nav class="nav-links">
+                <a href="#" class="active" onclick="showScreen('dashboard-screen'); return false;">Dashboard</a>
+                <a href="#" onclick="showScreen('booking-screen'); return false;">Book Session</a>
+                <a href="#" onclick="showScreen('chat-screen'); return false;">Chat</a>
+                <a href="#" onclick="showToast('Materail page coming soon!'); return false;">Materail</a>
+            </nav>
+            <div class="user-actions">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="profile-btn" onclick="showScreen('profile-screen')">
+                    <div class="profile-avatar">P</div>
+                    <span class="profile-name">User name </span>
+                </button>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden">
+        <div class="mobile-menu-container">
+            <a href="#" onclick="showScreen('dashboard-screen'); toggleMobileMenu(); return false;">Dashboard</a>
+            <a href="#" onclick="showScreen('booking-screen'); toggleMobileMenu(); return false;">Book Session</a>
+            <a href="#" onclick="showScreen('chat-screen'); toggleMobileMenu(); return false;">Messages</a>
+            <a href="#" onclick="showToast('Resources page coming soon!'); toggleMobileMenu(); return false;">Profile</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Login Screen -->
+            <div id="login-screen">
+                <div class="login-container">
+                    <div class="login-tabs">
+                        <div class="login-tab active" onclick="switchLoginTab('login')">Login</div>
+                        <div class="login-tab" onclick="switchLoginTab('signup')">Sign Up</div>
+                        <div class="login-slider"></div>
+                    </div>
+                    <div class="login-form-container">
+                        <div class="login-header">
+                            <h2>Welcome Back</h2>
+                            <p>Login to access your Edutec account</p>
+                        </div>
+                        <div class="social-login">
+                            <button class="social-btn">
+                                <i class="fab fa-google"></i>
+                                Google
+                            </button>
+                            <button class="social-btn">
+                                <i class="fab fa-facebook-f"></i>
+                                Facebook
+                            </button>
+                        </div>
+                        <div class="divider">
+                            <span>or continue with</span>
+                        </div>
+                        <form id="login-form">
+                            <div class="form-group">
+                                <label class="form-label" for="email">Email</label>
+                                <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="password">Password</label>
+                                <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required>
+                            </div>
+                            <div class="form-checkbox">
+                                <input type="checkbox" id="remember" name="remember">
+                                <label for="remember">Remember me</label>
+                            </div>
+                            <a href="#" class="forgot-password" onclick="showToast('Password reset coming soon!'); return false;">Forgot Password?</a>
+                            <div class="form-group mt-20">
+                                <button type="button" class="btn btn-primary w-100" onclick="handleLogin()">Login</button>
+                            </div>
+                        </form>
+                        <div class="login-footer">
+                            <p>Don't have an account? <a href="#" onclick="switchLoginTab('signup'); return false;">Sign Up</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Screen -->
+            <div id="dashboard-screen">
+                <div class="dashboard-header">
+                    <div class="welcome-message">
+                        <h1>Welcome!</h1>
+                        <p>Find the perfect tutor for your learning needs and check your upcoming sessions.</p>
+                    </div>
+                </div>
+
+                
+            
+
+                <div class="dashboard-actions">
+                    <div class="action-card animate-fade-in" style="animation-delay: 0.5s;" onclick="showScreen('booking-screen')">
+                        <div class="action-icon">
+                            <i class="fas fa-calendar-plus"></i>
+                        </div>
+                        <h3 class="action-title">Book a Session</h3>
+                        <p class="action-desc">Schedule a new tutoring session with an expert</p>
+                    </div>
+                    <div class="action-card animate-fade-in" style="animation-delay: 0.6s;" onclick="showScreen('chat-screen')">
+                        <div class="action-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3 class="action-title">Messages</h3>
+                        <p class="action-desc">Chat with your tutors and classmates</p>
+                    </div>
+                    <div class="action-card animate-fade-in" style="animation-delay: 0.7s;" onclick="showToast('Resources page coming soon!')">
+                        <div class="action-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="action-title">Resources</h3>
+                        <p class="action-desc">Access learning materials and resources</p>
+                    </div>
+                </div>
+
+                <div class="tutors-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Recommended Tutors</h2>
+                        <a href="#" class="btn btn-text" onclick="showToast('View all tutors coming soon!'); return false;">View All</a>
+                    </div>
+                    <div class="tutor-cards">
+                        
+                        <div class="tutor-card animate-fade-in" style="animation-delay: 0.3s;">
+                            <div class="tutor-cover"></div>
+                            <
+                            <div class="tutor-info">
+                                <h3 class="tutor-name">TUTOR NAME</h3>
+                                <p class="tutor-subject">SUBJECT</p>
+                                
+                                <div class="tutor-tags">
+                                    <span class="tutor-tag">expertsubject 1</span>
+                                    <span class="tutor-tag">expertsubject 2</span>
+                                    <span class="tutor-tag">expertsubject 3</span>
+                                </div>
+                                <div class="tutor-footer">
+                                    <span class="tutor-price"></span>
+                                    <button class="btn btn-outline" onclick="showToast(' profile coming soon!')">View Profile</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tutor-card animate-fade-in" style="animation-delay: 0.4s;">
+                            <div class="tutor-cover"></div>
+                            
+                            <div class="tutor-info">
+                                <h3 class="tutor-name">TUTOR</h3>
+                                <p class="tutor-subject">SUBJECT</p>
+                                
+                                <div class="tutor-tags">
+                                    <span class="tutor-tag">expertsubject 1</span>
+                                    <span class="tutor-tag">expertsubject 2</span>
+                                    <span class="tutor-tag">expertsubject 3</span>
+                                </div>
+                                <div class="tutor-footer">
+                                    <span class="tutor-price"></span>
+                                    <button class="btn btn-outline" onclick="showToast(' profile coming soon!')">View Profile</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sessions-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Upcoming Sessions</h2>
+                        <a href="#" class="btn btn-text" onclick="showToast('View all sessions coming soon!'); return false;">View All</a>
+                    </div>
+                    <div class="session-cards">
+                        <div class="session-card animate-fade-in" style="animation-delay: 0.2s;">
+                           
+                            <div class="session-info">
+                                <div class="session-header">
+                                    <h3 class="session-title">CHAPTER OR TOPIC</h3>
+                                    <span class="session-status status-upcoming">Upcoming</span>
+                                </div>
+                                <div class="session-details">
+                                    <div class="session-detail">
+                                        <i class="fas fa-user"></i>
+                                        <span>Tutor</span>
+                                    </div>
+                                    <div class="session-detail">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>Tomorrow, 3:00 PM</span>
+                                    </div>
+                                    <div class="session-detail">
+                                        <i class="fas fa-clock"></i>
+                                        <span>60 minutes</span>
+                                    </div>
+                                </div>
+                                <div class="session-actions">
+                                    <button class="btn btn-outline" onclick="showToast('Coming soon')">
+                                    Message</button>
+                                    <button class="btn btn-primary" onclick="showToast('Session will be available tomorrow')">Join Session</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="session-card animate-fade-in" style="animation-delay: 0.3s;">
+                           
+                            <div class="session-info">
+                                <div class="session-header">
+                                    <h3 class="session-title">TOPIC</h3>
+                                    <span class="session-status status-upcoming">Upcoming</span>
+                                </div>
+                                <div class="session-details">
+                                    <div class="session-detail">
+                                        <i class="fas fa-user"></i>
+                                        <span>TUTOR</span>
+                                    </div>
+                                    <div class="session-detail">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>Friday, 5:00 PM</span>
+                                    </div>
+                                    <div class="session-detail">
+                                        <i class="fas fa-clock"></i>
+                                        <span>90 minutes</span>
+                                    </div>
+                                </div>
+                                <div class="session-actions">
+                                    <button class="btn btn-outline" onclick="showToast('Coming soon')">Message</button>
+                                    <button class="btn btn-primary" onclick="showToast('Session will be available on Friday')">Join Session</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Screen -->
+            <div id="profile-screen">
+                <form id="profile-form" enctype="multipart/form-data">
+                    <div class="profile-header">
+                        <div class="profile-avatar-container">
+                            <div class="profile-avatar" id="profile-avatar-preview">SJ</div>
+                            <input type="file" id="profile-image-upload" accept="image/*" style="display: none;">
+                            <button type="button" class="btn btn-small" onclick="document.getElementById('profile-image-upload').click()">Upload Photo</button>
+                        </div>
+                        <div class="profile-info">
+                            <input type="text" class="profile-name" placeholder="Your Name" value="TUTOR">
+                            <input type="text" class="profile-title" placeholder="Your Title (e.g. Mathematics Tutor | 5+ Years Experience)">
+                            <div class="profile-stats">
+                                <div class="profile-stat">
+                                    <input type="number" class="profile-stat-value" placeholder="0" value="120">
+                                    <div class="profile-stat-label">Sessions</div>
+                                </div>
+                                <div class="profile-stat">
+                                    <input type="number" step="0.1" min="0" max="5" class="profile-stat-value" placeholder="0.0" value="4.5">
+                                    <div class="profile-stat-label">Rating</div>
+                                </div>
+                                <div class="profile-stat">
+                                    <input type="number" class="profile-stat-value" placeholder="0%" value="98">
+                                    <div class="profile-stat-label">Completion</div>
+                                </div>
+                                <div class="profile-stat">
+                                    <input type="text" class="profile-stat-value" placeholder="0h" value="24h">
+                                    <div class="profile-stat-label">Response Time</div>
+                                </div>
+                            </div>
+                            <div class="profile-actions">
+                                <button type="submit" class="btn btn-primary">Save Profile</button>
+                                <button type="button" class="btn btn-outline" onclick="resetForm()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="profile-tabs">
+                        <div class="profile-tab active">About</div>
+                        <div class="profile-tab">Reviews</div>
+                        <div class="profile-tab">Schedule</div>
+                        <div class="profile-tab">Subjects</div>
+                    </div>
+            
+                    <div class="profile-content">
+                        <div class="profile-main">
+                            <div class="about-section">
+                                <h2 class="section-title">About Me</h2>
+                                <textarea class="about-text" placeholder="Tell us about yourself..."></textarea>
+                            </div>
+            
+                            <div class="expertise-section">
+                                <h2 class="section-title">Expertise</h2>
+                                <div class="expertise-list">
+                                    <input type="text" class="expertise-item" placeholder="Expertise 1" value="Calculus">
+                                    <input type="text" class="expertise-item" placeholder="Expertise 2" value="Linear Algebra">
+                                    <input type="text" class="expertise-item" placeholder="Expertise 3" value="Statistics">
+                                    <input type="text" class="expertise-item" placeholder="Expertise 4" value="Probability">
+                                    <input type="text" class="expertise-item" placeholder="Expertise 5" value="Differential Equations">
+                                    <input type="text" class="expertise-item" placeholder="Expertise 6" value="Discrete Mathematics">
+                                    <button type="button" class="btn btn-small" onclick="addExpertiseField()">+ Add More</button>
+                                </div>
+                            </div>
+            
+                            <div class="education-section">
+                                <h2 class="section-title">Education</h2>
+                                <div class="education-item">
+                                    <input type="text" class="education-year" placeholder="Year" value="YEAR">
+                                    <input type="text" class="education-degree" placeholder="Degree" value="EDUCATION DEGREE">
+                                    <input type="text" class="education-school" placeholder="University/School" value="University">
+                                </div>
+                                <div class="education-item">
+                                    <input type="text" class="education-year" placeholder="Duration" value="EDUCATIONAL DURATION">
+                                    <input type="text" class="education-degree" placeholder="Qualifications" value="EXTRA QUALIFICATIONS">
+                                    <input type="text" class="education-school" placeholder="University/School" value="University">
+                                </div>
+                                <button type="button" class="btn btn-small" onclick="addEducationField()">+ Add Education</button>
+                            </div>
+            
+                            <!-- Reviews section remains read-only since it's typically added by others -->
+                            <div class="reviews-section">
+                                <h2 class="section-title">Reviews</h2>
+                                <p class="info-text">Reviews will appear here after you receive feedback from students.</p>
+                            </div>
+                        </div>
+            
+                        <div class="profile-sidebar">
+                            <div class="sidebar-section">
+                                <h3 class="sidebar-title">Availability</h3>
+                                <!-- Calendar remains as is for now, could be enhanced with input functionality -->
+                                <div class="availability-calendar">
+                                    <!-- Calendar content remains the same -->
+                                    <!-- ... (calendar code) ... -->
+                                </div>
+                                <div class="time-slots mt-20">
+                                    <div class="time-slot">
+                                        <input type="checkbox" id="slot-9am" checked>
+                                        <label for="slot-9am">9:00 AM</label>
+                                    </div>
+                                    <div class="time-slot">
+                                        <input type="checkbox" id="slot-10am" checked>
+                                        <label for="slot-10am">10:00 AM</label>
+                                    </div>
+                                    <div class="time-slot">
+                                        <input type="checkbox" id="slot-11am">
+                                        <label for="slot-11am">11:00 AM</label>
+                                    </div>
+                                    <div class="time-slot">
+                                        <input type="checkbox" id="slot-1pm" checked>
+                                        <label for="slot-1pm">1:00 PM</label>
+                                    </div>
+                                    <div class="time-slot">
+                                        <input type="checkbox" id="slot-3pm" checked>
+                                        <label for="slot-3pm">3:00 PM</label>
+                                    </div>
+                                    <div class="time-slot">
+                                        <input type="checkbox" id="slot-4pm" checked>
+                                        <label for="slot-4pm">4:00 PM</label>
+                                    </div>
+                                    <div class="time-slot">
+                                        <input type="checkbox" id="slot-5pm" checked>
+                                        <label for="slot-5pm">5:00 PM</label>
+                                    </div>
+                                    <div class="time-slot">
+                                        <input type="checkbox" id="slot-6pm" checked>
+                                        <label for="slot-6pm">6:00 PM</label>
+                                    </div>
+                                    <div class="time-slot">
+                                        <input type="checkbox" id="slot-7pm">
+                                        <label for="slot-7pm">7:00 PM</label>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="sidebar-section">
+                                <h3 class="sidebar-title">Contact Information</h3>
+                                <div class="contact-info-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" placeholder="Your Email" value="@email.com">
+                                </div>
+                                <div class="contact-info-item">
+                                    <i class="fas fa-phone"></i>
+                                    <input type="tel" placeholder="Your Phone Number" value="08123456789">
+                                </div>
+                                <div class="contact-info-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <input type="text" placeholder="Your Location" value="PLACE">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Booking Screen -->
+            <div id="booking-screen">
+                <div class="booking-container">
+                    <div class="booking-form-container">
+                        <h2 class="booking-title">Book a Tutoring Session</h2>
+                        <div class="form-steps">
+                            <div class="form-step active">
+                                <div class="step-number">1</div>
+                                <div class="step-label">Service</div>
+                            </div>
+                            <div class="form-step">
+                                <div class="step-number">2</div>
+                                <div class="step-label">Schedule</div>
+                            </div>
+                            <div class="form-step">
+                                <div class="step-number">3</div>
+                                <div class="step-label">Details</div>
+                            </div>
+                            <!--
+                            <div class="form-step">
+                                <div class="step-number">4</div>
+                                <div class="step-label">Payment</div>
+                            </div>-->
+                        </div>
+
+                        <div class="step-content active" id="step-1">
+                            <h3 class="step-title">Select a Service</h3>
+                            <div class="service-options">
+                                <div class="service-option active" onclick="selectService(this)">
+                                    <div class="service-option-header">
+                                        <div class="service-icon">
+                                            <i class="fas fa-video"></i>
+                                        </div>
+                                        <div class="service-name">Group Session</div>
+                                    </div>
+                                    <div class="service-description">
+                                         Tutoring via video call with screen sharing capabilities.
+                                    </div>
+                                    <div class="service-price">45 minutes</div>
+                                </div>
+                                <div class="service-option" onclick="selectService(this)">
+                                    <div class="service-option-header">
+                                        <div class="service-icon">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="service-name">One-on-one Session</div>
+                                    </div>
+                                    <div class="service-description">
+                                        One-on-one   tutoring via video call with screen sharing capabilities.
+                                    </div>
+                                    <div class="service-price">1 hour</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-30">
+                                <label class="form-label" for="subject">Subject</label>
+                                <select class="form-input form-select" id="subject" name="subject">
+                                    <option value="">Select a subject</option>
+                                    <option value="math">Mathematics</option>
+                                    <option value="calculus" selected>Calculus</option>
+                                    <option value="algebra">Algebra</option>
+                                    <option value="statistics">Statistics</option>
+                                    <option value="physics">Physics</option>
+                                    <option value="chemistry">Chemistry</option>
+                                    <option value="biology">Biology</option>
+                                    <option value="computer-science">Computer Science</option>
+                                    <option value="english">English</option>
+                                    <option value="history">History</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="session-length">Session Length</label>
+                                <select class="form-input form-select" id="session-length" name="session-length">
+                                    <option value="30">30 minutes</option>
+                                    <option value="60" selected>1 hour</option>
+                                    <option value="90">1.5 hours</option>
+                                    <option value="120">2 hours</option>
+                                </select>
+                            </div>
+
+                            <div class="text-right mt-30">
+                                <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                            </div>
+                        </div>
+
+                        <div class="step-content" id="step-2">
+                            <h3 class="step-title">Select Date & Time</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="booking-date">Date</label>
+                                <input type="date" id="booking-date" name="booking-date" class="form-input" min="2023-09-16" value="2023-09-16">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Available Time Slots</label>
+                                <div class="time-slots">
+                                    <div class="time-slot" onclick="selectTimeSlot(this)">9:00 AM</div>
+                                    <div class="time-slot" onclick="selectTimeSlot(this)">10:00 AM</div>
+                                    <div class="time-slot disabled">11:00 AM</div>
+                                    <div class="time-slot" onclick="selectTimeSlot(this)">1:00 PM</div>
+                                    <div class="time-slot active" onclick="selectTimeSlot(this)">3:00 PM</div>
+                                    <div class="time-slot" onclick="selectTimeSlot(this)">4:00 PM</div>
+                                    <div class="time-slot" onclick="selectTimeSlot(this)">5:00 PM</div>
+                                    <div class="time-slot" onclick="selectTimeSlot(this)">6:00 PM</div>
+                                    <div class="time-slot disabled">7:00 PM</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-20">
+                                <label class="form-label">Timezone</label>
+                                <select class="form-input form-select" id="timezone" name="timezone">
+                                    <option value="PST" selected>Pacific Time (PST)</option>
+                                    <option value="MST">Mountain Time (MST)</option>
+                                    <option value="CST">Central Time (CST)</option>
+                                    <option value="EST">Eastern Time (EST)</option>
+                                    <option value="GMT">Greenwich Mean Time (GMT)</option>
+                                    <option value="CET">Central European Time (CET)</option>
+                                </select>
+                            </div>
+
+                            <div class="text-right mt-30">
+                                <button class="btn btn-outline" onclick="prevStep()">Back</button>
+                                <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                            </div>
+                        </div>
+
+                        <div class="step-content" id="step-3">
+                            <h3 class="step-title">Session Details</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="session-title">Session Title</label>
+                                <input type="text" id="session-title" name="session-title" class="form-input" placeholder="e.g., Calculus - Derivatives and Integrals" value="Calculus - Derivatives and Integrals">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="session-goals">Learning Goals</label>
+                                <textarea id="session-goals" name="session-goals" class="form-input" rows="4" placeholder="What do you want to achieve in this session?">I want to better understand derivatives of trigonometric functions and the chain rule. I've been struggling with these concepts in my calculus class.</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="additional-info">Additional Information</label>
+                                <textarea id="additional-info" name="additional-info" class="form-input" rows="4" placeholder="Any specific topics, questions, or materials to prepare?">I would like to go through some example problems from my textbook (Stewart Calculus, Chapter 3.5-3.6). I'll bring specific problems I'm struggling with.</textarea>
+                            </div>
+
+                            <div class="text-right mt-30">
+                                <button class="btn btn-outline" onclick="prevStep()">Back</button>
+                                <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                            </div>
+                        </div>
+
+                        <div class="step-content" id="step-4">
+                            <h3 class="step-title">Payment Details</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="card-name">Name on Card</label>
+                                <input type="text" id="card-name" name="card-name" class="form-input" placeholder="John Doe">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="card-number">Card Number</label>
+                                <input type="text" id="card-number" name="card-number" class="form-input" placeholder="1234 5678 9012 3456">
+                            </div>
+
+                            <div class="grid grid-2 gap-20">
+                                <div class="form-group">
+                                    <label class="form-label" for="card-expiry">Expiry Date</label>
+                                    <input type="text" id="card-expiry" name="card-expiry" class="form-input" placeholder="MM/YY">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="card-cvc">CVC</label>
+                                    <input type="text" id="card-cvc" name="card-cvc" class="form-input" placeholder="123">
+                                </div>
+                            </div>
+
+                            <div class="form-checkbox mt-20">
+                                <input type="checkbox" id="save-card" name="save-card">
+                                <label for="save-card">Save card for future payments</label>
+                            </div>
+
+                            <div class="text-right mt-30">
+                                <button class="btn btn-outline" onclick="prevStep()">Back</button>
+                                <button class="btn btn-primary" onclick="completeBooking()">Complete Booking</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="booking-summary">
+                        <h3 class="summary-title">Booking Summary</h3>
+                        <div class="summary-tutor">
+                            <div class="summary-tutor-avatar">T</div>
+                            <div class="summary-tutor-info">
+                                <div class="summary-tutor-name">TUTOR</div>
+                                <div class="summary-tutor-subject">Mathematics Tutor</div>
+                            </div>
+                        </div>
+                        <div class="summary-details">
+                            <div class="summary-item">
+                                <div class="summary-label">Service</div>
+                                <div class="summary-value">Online Session</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Subject</div>
+                                <div class="summary-value">Calculus</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Date</div>
+                                <div class="summary-value">April 16, 2024</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Time</div>
+                                <div class="summary-value">3:00 PM (PST)</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Duration</div>
+                                <div class="summary-value">1 hour</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label"></div>
+                                <div class="summary-value"></div>
+                            </div>
+                        </div>
+                        <div class="summary-total">
+                            <div class="total-label"></div>
+                            <div class="total-value"></div>
+                        </div>
+                        <button class="btn btn-primary w-100" onclick="completeBooking()">Complete Booking</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Screen -->
+            <div id="chat-screen">
+                <!-- Communication Options Container -->
+                <div class="chat-container">
+                    <!-- Left sidebar with contacts list -->
+                    <div class="chat-sidebar">
+                        <div class="chat-search">
+                            <div class="search-input">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Search contacts...">
+                            </div>
+                        </div>
+                        <div class="chat-contacts">
+                            <div class="chat-contact active" onclick="switchChatContact(this)">
+                                <div class="contact-avatar">
+                                    
+                                    <div class="contact-status"></div>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-name">Tutor</div>
+                                    <div class="contact-message">Math Tutor</div>
+                                </div>
+                                <div class="contact-meta">
+                                    <div class="contact-time">Online</div>
+                                </div>
+                            </div>
+                            <div class="chat-contact" onclick="switchChatContact(this)">
+                                <div class="contact-avatar">
+                                    MC
+                                    <div class="contact-status"></div>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-name">Other TUTOR</div>
+                                    <div class="contact-message">Science Tutor</div>
+                                </div>
+                                <div class="contact-meta">
+                                    <div class="contact-time">Away</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Main communication area -->
+                    <div class="chat-main">
+                        <div class="chat-header">
+                            <div class="chat-user">
+                                <div class="chat-user-avatar">SJ</div>
+                                <div class="chat-user-info">
+                                    <div class="chat-user-name">TUTOR</div>
+                                    <div class="chat-user-status">
+                                        <div class="status-indicator"></div>
+                                        <span>Online</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-actions">
+                                <!-- Only two primary communication options -->
+                                <div class="chat-action" onclick="showChatArea()">
+                                    <i class="fas fa-comment"></i>
+                                    <span>Message</span>
+                                </div>
+                                <div class="chat-action" onclick="toggleVideoCall()">
+                                    <i class="fas fa-video"></i>
+                                    <span>Video Call</span>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Chat message area -->
+                        <div class="chat-messages" id="chat-message-area">
+                            <div class="message-group">
+                                <div class="message-info">
+                                    <div class="message-avatar"></div>
+                                    <div class="message-sender">TUTOR</div>
+                                    <div class="message-time">Just now</div>
+                                </div>
+                                <div class="message-content">
+                                    <div class="message-bubble">
+                                        Hello! How can I help you today? Would you like to chat or start a video session?
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Chat input area -->
+                        <div class="chat-input">
+                            <div class="input-container">
+                                <div class="message-input">
+                                    <textarea placeholder="Type a message..." id="chat-message"></textarea>
+                                </div>
+                                <div class="send-btn" onclick="sendChatMessage()">
+                                    <i class="fas fa-paper-plane"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Video call container (hidden by default) -->
+                <div id="video-call" class="video-call-container" style="display: none;">
+                    <div class="video-grid">
+                        <div class="video-box">
+                            <i class="fas fa-user"></i>
+                            <div class="video-user-info">
+                                <i class="fas fa-microphone"></i>
+                                <span>You</span>
+                            </div>
+                        </div>
+                        <div class="video-box">
+                            <i class="fas fa-user"></i>
+                            <div class="video-user-info">
+                                <i class="fas fa-microphone"></i>
+                                <span>Tutor</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-controls">
+                        <div class="video-control control-mute" onclick="toggleMute()">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <div class="video-control control-video" onclick="toggleVideo()">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="video-control control-end" onclick="toggleVideoCall()">
+                            <i class="fas fa-phone-slash"></i>
+                        </div>
+                        <div class="video-control control-chat" onclick="showChatArea()">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                    </div>
+                </div>
+            </div><div id="chat-screen">
+                <!-- Communication Options Container -->
+                <div class="chat-container">
+                    <!-- Left sidebar with contacts list -->
+                    <div class="chat-sidebar">
+                        <div class="chat-search">
+                            <div class="search-input">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Search contacts...">
+                            </div>
+                        </div>
+                        <div class="chat-contacts">
+                            <div class="chat-contact active" onclick="switchChatContact(this)">
+                                <div class="contact-avatar">
+                                    
+                                    <div class="contact-status"></div>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-name">TUTOR</div>
+                                    <div class="contact-message">Math Tutor</div>
+                                </div>
+                                <div class="contact-meta">
+                                    <div class="contact-time">Online</div>
+                                </div>
+                            </div>
+                            <div class="chat-contact" onclick="switchChatContact(this)">
+                                <div class="contact-avatar">
+                                    MC
+                                    <div class="contact-status"></div>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-name">OTHER TUTOR</div>
+                                    <div class="contact-message">Science Tutor</div>
+                                </div>
+                                <div class="contact-meta">
+                                    <div class="contact-time">Away</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Main communication area -->
+                    <div class="chat-main">
+                        <div class="chat-header">
+                            <div class="chat-user">
+                                <div class="chat-user-avatar"></div>
+                                <div class="chat-user-info">
+                                    <div class="chat-user-name">TUTOR</div>
+                                    <div class="chat-user-status">
+                                        <div class="status-indicator"></div>
+                                        <span>Online</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-actions">
+                                <!-- Only two primary communication options -->
+                                <div class="chat-action" onclick="showChatArea()">
+                                    <i class="fas fa-comment"></i>
+                                    <span>Message</span>
+                                </div>
+                                <div class="chat-action" onclick="toggleVideoCall()">
+                                    <i class="fas fa-video"></i>
+                                    <span>Video Call</span>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Chat message area -->
+                        <div class="chat-messages" id="chat-message-area">
+                            <div class="message-group">
+                                <div class="message-info">
+                                    <div class="message-avatar"></div>
+                                    <div class="message-sender">TUTOR</div>
+                                    <div class="message-time">Just now</div>
+                                </div>
+                                <div class="message-content">
+                                    <div class="message-bubble">
+                                        Hello! How can I help you today? Would you like to chat or start a video session?
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Chat input area -->
+                        <div class="chat-input">
+                            <div class="input-container">
+                                <div class="message-input">
+                                    <textarea placeholder="Type a message..." id="chat-message"></textarea>
+                                </div>
+                                <div class="send-btn" onclick="sendChatMessage()">
+                                    <i class="fas fa-paper-plane">SEND</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Video call container (hidden by default) -->
+                <div id="video-call" class="video-call-container" style="display: none;">
+                    <div class="video-grid">
+                        <div class="video-box">
+                            <i class="fas fa-user"></i>
+                            <div class="video-user-info">
+                                <i class="fas fa-microphone"></i>
+                                <span>You</span>
+                            </div>
+                        </div>
+                        <div class="video-box">
+                            <i class="fas fa-user"></i>
+                            <div class="video-user-info">
+                                <i class="fas fa-microphone"></i>
+                                <span>TUTOR</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-controls">
+                        <div class="video-control control-mute" onclick="toggleMute()">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <div class="video-control control-video" onclick="toggleVideo()">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="video-control control-end" onclick="toggleVideoCall()">
+                            <i class="fas fa-phone-slash"></i>
+                        </div>
+                        <div class="video-control control-chat" onclick="showChatArea()">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Dark mode detection
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+            updateThemeToggleIcon();
+        }
+        
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            updateThemeToggleIcon();
+        });
+        
+        function updateThemeToggleIcon() {
+            const themeToggle = document.querySelector('.theme-toggle i');
+            if (document.documentElement.classList.contains('dark')) {
+                themeToggle.classList.remove('fa-moon');
+                themeToggle.classList.add('fa-sun');
+            } else {
+                themeToggle.classList.remove('fa-sun');
+                themeToggle.classList.add('fa-moon');
+            }
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            const themeToggle = document.querySelector('.theme-toggle i');
+            
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                themeToggle.classList.remove('fa-sun');
+                themeToggle.classList.add('fa-moon');
+            } else {
+                document.documentElement.classList.add('dark');
+                themeToggle.classList.remove('fa-moon');
+                themeToggle.classList.add('fa-sun');
+            }
+        }
+
+        // Mobile Menu
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.style.display = 'block';
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.style.display = 'none';
+            }
+        }
+
+        // Toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            
+            if (type === 'error') {
+                toast.classList.add('error');
+            } else {
+                toast.classList.remove('error');
+            }
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Screen Navigation
+        function showScreen(screenId) {
+            const screens = ['login-screen', 'dashboard-screen', 'profile-screen', 'booking-screen', 'chat-screen'];
+            
+            screens.forEach(screen => {
+                document.getElementById(screen).style.display = 'none';
+            });
+            
+            document.getElementById(screenId).style.display = 'block';
+            
+            // If showing chat screen, hide video call by default
+            if (screenId === 'chat-screen') {
+                document.getElementById('video-call').style.display = 'none';
+            }
+            
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(screenId)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Login Screen
+        function switchLoginTab(tab) {
+            const loginTab = document.querySelector('.login-tab.active');
+            const loginSlider = document.querySelector('.login-slider');
+            const loginHeader = document.querySelector('.login-header h2');
+            const loginSubtitle = document.querySelector('.login-header p');
+            
+            if (tab === 'login') {
+                loginTab.classList.remove('active');
+                document.querySelectorAll('.login-tab')[0].classList.add('active');
+                loginSlider.style.left = '5px';
+                loginHeader.textContent = 'Welcome Back';
+                loginSubtitle.textContent = 'Login to access your TutorConnect account';
+            } else {
+                loginTab.classList.remove('active');
+                document.querySelectorAll('.login-tab')[1].classList.add('active');
+                loginSlider.style.left = 'calc(50% + 5px)';
+                loginHeader.textContent = 'Create Account';
+                loginSubtitle.textContent = 'Join TutorConnect and start learning today';
+            }
+        }
+
+        function handleLogin() {
+            // Simple validation
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                showToast('Please enter both email and password', 'error');
+                return;
+            }
+            
+            // In a real app, this would validate credentials with a server
+            showScreen('dashboard-screen');
+            showToast('Welcome back, John!');
+        }
+
+       
+
+        // Booking Screen
+        function selectService(element) {
+            document.querySelectorAll('.service-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            element.classList.add('active');
+            
+            // Update summary
+            const serviceName = element.querySelector('.service-name').textContent;
+            document.querySelector('.summary-item:first-child .summary-value').textContent = serviceName;
+            
+            // Update price
+            const price = element.querySelector('.service-price').textContent;
+            document.querySelector('.total-value').textContent = price;
+        }
+
+        function selectTimeSlot(element) {
+            if (element.classList.contains('disabled')) return;
+            
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('active');
+            });
+            element.classList.add('active');
+            
+            // Update summary
+            const timezone = document.getElementById('timezone').value;
+            document.querySelector('.summary-item:nth-child(4) .summary-value').textContent = element.textContent + ' (' + timezone + ')';
+        }
+
+        let currentStep = 1;
+
+        function nextStep() {
+            if (currentStep < 4) {
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                document.querySelectorAll('.form-step')[currentStep - 1].classList.remove('active');
+                document.querySelectorAll('.form-step')[currentStep - 1].classList.add('completed');
+                
+                currentStep++;
+                
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                document.querySelectorAll('.form-step')[currentStep - 1].classList.add('active');
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                document.querySelectorAll('.form-step')[currentStep - 1].classList.remove('active');
+                
+                currentStep--;
+                
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                document.querySelectorAll('.form-step')[currentStep - 1].classList.add('active');
+                document.querySelectorAll('.form-step')[currentStep - 1].classList.remove('completed');
+            }
+        }
+
+        function completeBooking() {
+            // Simple validation for payment step
+            if (currentStep === 4) {
+                const cardName = document.getElementById('card-name').value;
+                const cardNumber = document.getElementById('card-number').value;
+                const cardExpiry = document.getElementById('card-expiry').value;
+                const cardCvc = document.getElementById('card-cvc').value;
+                
+                if (!cardName || !cardNumber || !cardExpiry || !cardCvc) {
+                    showToast('Please fill in all payment details', 'error');
+                    return;
+                }
+            }
+            
+            showToast('Booking completed successfully!');
+            showScreen('dashboard-screen');
+        }
+
+        // Profile Screen
+        function showTutorProfile() {
+            showScreen('profile-screen');
+        }
+
+        // Utility functions
+        function getInitials(name) {
+            return name.split(' ')
+                .map(word => word.charAt(0))
+                .join('')
+                .toUpperCase();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show login screen by default
+            showScreen('login-screen');
+            
+            // Add event listener for chat message input
+            const chatInput = document.getElementById('chat-message');
+            if (chatInput) {
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendChatMessage();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
